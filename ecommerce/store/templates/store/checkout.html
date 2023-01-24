@@ -1,0 +1,69 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="row">
+      <div class="col-lg-6">
+          <div class="box-element" id="form-wrapper">
+            <form id="form" style="text-align: right"method="POST" action="">
+                {% csrf_token %}
+                <div id="shipping-info">
+                    <hr>
+                    <p>اطلاعات ارسال پستی</p>
+                    <hr>
+                    <div class="form-field">
+                        <input  style="text-align: right" required name="address" type="text" class="form-control" placeholder="...آدرس" >
+
+                    </div>
+                    <div class="form-field">
+                        <input  style="text-align: right" required name="city" type="text" class="form-control" placeholder="...شهر">
+
+                    </div>
+                    <div class="form-field">
+                        <input style="text-align: right" required name="state" type="text" class="form-control" placeholder="...استان">
+
+                    </div>
+                    <div class="form-field">
+                        <input style="text-align: right" required name="zipcode" type="text" class="form-control" placeholder="...کد پستی">
+
+
+                    </div>
+                </div>
+                <hr>
+                <div class="box-element hidden">
+                    <small>Paypal Options</small>
+
+                </div>
+                <br>
+                <input href={% url 'store' %} id="form-button" type="submit" class="btn btn-success btn-block" value="ذخیره و پرداخت">
+            </form>
+          </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="box-element">
+            <a href="{% url 'cart' %}" class="btn btn-outline-dark">
+               &#x2190; بازگشت به سبد خرید
+            </a>
+            <hr>
+            <h3 align="right">صورت حساب نهایی</h3>
+            <hr>
+            {% for item in items %}
+                <div class="cart-row" >
+                    <div style="flex:2">
+                        <img src="{{item.imageURL}}" alt="artwork" class="row-image">
+                    </div>
+                    <div style="flex:2">
+                        <p style="direction: rtl">{{item.name}}</p>
+                    </div>
+                    <div style="flex:1">
+                        <p style="direction: rtl">{{item.price}} تومان</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <h5 align="right">تعداد آثار:{{get_cart_items}} </h5>
+            <h5 align="right"> قیمت کل:{{get_cart_total}} تومان </h5>
+        </div>
+    </div>
+  </div>
+{% endblock content %}
